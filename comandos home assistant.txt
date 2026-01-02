@@ -1,0 +1,25 @@
+Instalación de homeassistant en virtualbox:
+
+- Descargar la imagen de disco de virtualbox:
+	https://www.home-assistant.io/installation/alternative/
+	
+- Crear máquina virtual en virtualbox con las siguientes características:
+	Type: Linux
+	Subtype: Linux 2.6
+	Base Memory: 4GB
+	Processors: 4 CPUs
+	- Enable EFI
+		Had Disk:
+			- Use Existing Virtual Hard Disk File.			
+			- Elegimos el archivo VDI descargado.
+	Configuración de red:
+		- Bridged Adapter
+		- Promiscuous mode: Allow All
+	Configuración de audio: elegir la tarjeta de audio física.
+	
+- Al arrancar la VM nos dará la IP y el puerto en "Home Assistant URL".
+
+- Ir a la dirección asignada:
+	192.168.3.61:8123
+	
+- Aparece el mensaje "Preparando Home Assistant" y esperamos a que termine el proceso.

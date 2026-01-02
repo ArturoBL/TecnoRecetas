@@ -1,0 +1,17 @@
+- Dar acceso a postgres al usuario de odoo:
+	- Detener el servidor de postgres.
+		sudo systemctl stop postgresql
+	- Editar el archiivo /etc/postgresql/16/main/pg_hba.conf:
+		sudo vi /etc/postgresql/16/main/pg_hba.conf
+	- Agregar la línea (para el usuario de nombre odoo18):
+		host	all		odoo18		127.0.0.1/32		md5
+	- Editar el archivo /etc/postgresql/16/main/postgresql.conf:
+		sudo vi /etc/postgresql/16/main/postgresql.conf
+	- Quitar marca de comentario para:
+		listen_addresses = 'localhost'
+
+- Configurar servicio de postgresql para que se ejecute de forma automática:
+	sudo systemctl enable postgresql
+
+- Checkar status del servicio:
+	sudo systemctl status postgresql
