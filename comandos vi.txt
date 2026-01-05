@@ -1,0 +1,45 @@
+Comandos vi
+
+-editar
+	a
+-guardar
+	:w
+
+-Guardar y salir:
+	:wq
+
+- Salir sin guardar cambios:
+	:q!
+
+-buscar cadena:
+	/<cadena><enter>        <---- diagonal sin usar teclado numérico, usar tecla de arriba de las letras
+
+-Deshacer:
+	u
+
+-Rehacer
+	Ctrl + r
+	
+-Ir al inicio del archivo:
+	gg
+	
+-Ir a la última línea del archivo:
+	Shift + g
+	
+-Ir a la línea número...:
+	<num>G
+
+-Mostrar números de línea:
+	:set number
+	
+-Ir al final de la línea:
+	$
+
+Ir al inicio de la línea:
+	0
+	
+- Copiar línea completa:
+	yy
+	
+- Pegar despues del cursor:
+	p
