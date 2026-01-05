@@ -1,0 +1,21 @@
+- Apagar:
+   sudo shutdown -h now
+
+- Reiniciar:
+  sudo reboot
+   ó
+  sudo shutdown -r now
+  
+- instalar net tools
+  sudo apt install net-tools
+
+ - cambiar reglas de firewall para permitir acceso a un puerto:
+	sudo ufw allow <puerto>/tcp
+	
+- Cambiar de terminal:
+	Ctrl + Alt + <F1..F7>
+	
+- obtener el contenido de una URL:
+	curl <http://...>
+	
+- ip: 192.168.100.7	
