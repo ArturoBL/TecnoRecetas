@@ -1,0 +1,64 @@
+usuario: Arturo
+password: dark
+
+-checar versiòn de ubuntu:
+	lsb_release -a
+
+-instalar docker:
+	sudo apt-get update
+	sudo apt install docker.io
+
+-para configurar Docker en el arranque:
+	sudo systemctl enable docker
+	
+-para checar si docker está corriendo:
+	sudo systemctl status docker
+		
+- para correr el servicio de docker:
+	sudo systemctl start docker
+
+- mostrar imágenes de docker:
+	sudo docker images
+
+- para mostrar contenedores con sus ids:
+	sudo docker ps -a
+
+- Mostrar logs del contenedor:
+	sudo docker logs <id contenedor>
+	
+- acceder al shell del ambiente virtual del contenedor:
+	sudo docker exec -it <container id> sh
+	
+- para salir del shell del comando anterior:
+	CTRL + P y luego CTRL + Q
+	
+- Eliminar container:
+	sudo docker rm <Container>
+
+- Crear imagen:
+	sudo docker build -t dockerweb .
+	
+- Correr container:
+	sudo docker run -d --name <nombre container> -p <puerto local>:<puerto container> <nombre imagen>
+	Ejem:
+	sudo docker run -d --name dockerwebcontainer -p 80:80 dockerweb
+	
+- Correr con opción a reiniciar cuando se inicia docker:
+	sudo docker run -d --name <nombre container> --restart unless-stopped -p <puerto local>:<puerto container> <nombre imagen>
+	
+- Actualizar contenedor:
+	sudo docker stop <contenedor>
+	sudo docker rm <contenedor>
+	sudo docker build -t dockerweb .	
+	sudo docker run -d --name dockerwebcontainer -p 80:80 dockerweb
+	
+- watchtower
+	sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --run-once --debug --cleanup
+	
+
+- Exportar imagen a archivo TAR:
+	sudo docker save -o nombre-imagen.tar nombre-de-la-imagen
+	
+
+- Crear imagen a partir de archivo TAR:
+	docker load -i nombre-imagen.tar
