@@ -1,0 +1,154 @@
+*Comandos obtenidos del siguiente video: https://www.youtube.com/watch?v=aYobvy9zVvU
+
+- Instalar Ubuntu server
+
+- Datos de usuario:
+	U y p: dark	
+
+- Configurar red de máquina virtual como bridge
+
+-instalar net tools
+	sudo apt install net-tools
+	
+- obtener IP con:
+	ifconfig
+
+-actualizar
+	sudo apt update
+	sudo apt upgrade
+
+- instalar openssh
+	sudo apt-get install openssh-server
+	sudo systemctl enable ssh --now
+	sudo systemctl start ssh
+
+- Conectar con putty
+
+- Instalar postres
+	sudo apt-get install -y postgresql
+	
+- Istalar dependencias de python:
+	sudo apt-get install -y python3-dev libxml2-dev libxslt1-dev zlib1g-dev libsasl2-dev libldap2-dev build-essential libssl-dev libffi-dev libmysqlclient-dev libjpeg-dev libpq-dev libjpeg8-dev liblcms2-dev libblas-dev libatlas-base-dev python3-venv
+	
+- revisar version de postgresql
+	psql --version
+	
+- Crear usuario de sistema "odoo18":
+	sudo useradd -m -d /opt/odoo18 -U -r -s /bin/bash odoo18
+
+- Crear usuario de postgres "odooo18":
+	sudo su - postgres -c "createuser -s odoo18"
+	
+- Descargar wkhtmltopdf:
+	sudo wget -P /tmp https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+
+- Instalar wkhtmltopdf:
+	sudo apt install /tmp/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+	
+- verificar instalaciòn:
+	dpkg -l | grep wkhtmltox
+
+- logear como sudo18:
+	sudo su - odoo18
+	
+- Clonar odoo18:
+	git clone https://github.com/odoo/odoo --depth 1 --branch 18.0 /opt/odoo18/odoo
+
+- Entrar a directorio y crear ambiente virtual:
+	cd /opt/odoo18
+	python3 -m venv odoo-venv
+
+- Activar ambiente virtual:
+	source odoo-venv/bin/activate
+
+- Instalar dependencias:
+	pip3 install wheel
+	pip3 install -r odoo/requirements.txt
+	
+- Cambiar al directorio de la fuente:
+	cd /opt/odoo18/odoo
+	
+- Ejecutar Odoo:
+	./odoo-bin
+
+- Terminar ejecución de odoo:
+	Ctrl + C
+	
+- Desactivar ambiente virtual:
+	deactivate
+	
+- crear el siguiente directorio:
+	mkdir /opt/odoo18/odoo-custom-addons
+	
+- Regresar a usuario root:
+	exit
+	
+- Crear archivo de configuración:
+	sudo vi /etc/odoo18.conf
+
+- El contenido del archivo odoo18.conf es:
+
+[options]
+;Especifique la contraseña que permite la gestion de la base de datos
+admin_passwd = admin_passwd
+db_host = False
+db_port = False
+db_user = odoo18
+db_password = False
+addons_path = /opt/odoo18/odoo/addons,/opt/odoo18/odoo-custom-addons
+;Es el puerto de longpolling predeterminado. Al igual que xmlrpc_port, estamos especificando este puerto para completar
+longpolling_port = 8072
+;Si planea configurar nginx, se recomienda especificar varios trabajadores en la configuración.
+;Si no establece esto en workers > 1, entonces podrìa tener problemas cuando especifique
+;los log polling blocks en el archivo de configuración de nginx.
+workers = 2
+;Deberá agregar un filtro db a su archivo de configuración si tiene más de una base de datos.
+;Los ; sigifica que el comando está comentado. Quitar el comentario 
+;y especifique la base de datos para que su instalación de Odoo sepa exáctamente qué base de datos usar para la instancia.
+;dbfilter = [your database]
+
+
+
+- Crear el archivo de servicio:
+	sudo vi /etc/systemd/system/odoo18.service
+
+- El archivo tendrá el siguiente contenido:
+
+[Unit]
+Description=Odoo18
+Requires=postgresql.service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+SyslogIdentifier=odoo18
+PermissionsStartOnly=true
+User=odoo18
+ExecStart=/opt/odoo18/odoo-venv/bin/python3 /opt/odoo18/odoo/odoo-bin -c /etc/odoo18.conf
+StandardOutput=journal+console
+
+[Install]
+WantedBy=multi-user.target
+
+
+- Informar al sistema sobre el nuevo servicio (recargar daemon):
+	sudo systemctl daemon-reload
+	
+- Habilitar el servicio de Odoo:
+	sudo systemctl enable --now odoo18
+	
+- Verificar el estado del servicio:
+	sudo systemctl status odoo18
+	
+- Acceder a odoo en el navegador:
+	http://192.168.100.6:8069
+	
+- En el portal de entrada introducir los siguientes datos:
+	Master psw: 1234   (definido en odoo18.conf)
+	Database Name: desarrollo
+	Email: gmail
+	P (DB): 1234
+	
+- Iniciar sesión con los siguientes datos:
+	Email: gmail
+	p: 1234
