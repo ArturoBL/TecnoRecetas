@@ -1,0 +1,12 @@
+https://www.youtube.com/watch?v=KelUM1111vE
+
+1. Configurar Máquina virtual con adaptador puente.
+
+2. Instalar net-tools
+	sudo apt install net-tools
+
+3. ifconfig para ver ip
+	ifconfig
+	
+4. Instalar openssh
+	apt-get install openssh-server
