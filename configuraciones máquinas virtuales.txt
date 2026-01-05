@@ -1,0 +1,1 @@
+- RED: configurar dispositivo de red como "Adaptador puente" para emular una conexión física a la red y tener acceso a los recursos.
