@@ -1,0 +1,21 @@
+- instalar python3:
+	sudo apt update
+	sudo apt install python3
+
+- instalar pip:
+	sudo apt install python3-pip
+	
+- instalar venv:
+	sudo apt install python3-virtualenv python3-venv	
+
+- Activar venv:
+	source venv/bin/actívate
+
+- Desactivar venv:
+	deactivate
+	
+- Crear archivo requirements ubuntu:	
+	pip freeze > requirements.txt	
+	
+- Instalar requirements.txt:	
+	pip install -r </path/to/requirements.txt>
