@@ -1,0 +1,60 @@
+Intall opencv visual studio
+
+- Descargar e instalar visual studio community 2019
+https://gist.github.com/Mr-Precise/9967e3fcf03f2df0282b76841d2f3876
+
+- Descargar y descomprimir OpenCV desde: https://github.com/opencv/opencv/releases
+
+- copiar la ruta donde se encuentran los ejecutables de opencv:
+C:\opencv\build\x64\vc16\bin
+
+- agregar a la variable path.
+
+- Crear nuevo proyecto en visual studio
+
+- Empty project, asignar ubicación y nombre
+
+- Cambiar la plataforma a x64
+
+- Menú proyecto, propiedades
+
+- Directorios de VC++
+
+- Agregar directorios de archivos de inclusión (include):
+C:\opencv\build\include
+
+- Agregar directorios de archivos de bibliotecas (libraries):
+C:\opencv\build\x64\vc16\lib
+
+- Ir a la opción Viculador (linker), entrada (input), propiedad Dependencias adicionales y agregar:
+opencv_world4110d.lib
+
+*Nota: el número de versión dependerá de la opción instalada, la "d" al final será para debug y sin la "d" para release.
+
+- Ir al explorador del proyecto y dar click derecho al proyecto, opción agregar, nuevo elemento, opción archivo CPP.
+
+- En el archivo CPP pegar el siguiente código:
+
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <iostream>
+
+using namespace cv;
+using namespace std;
+
+int main() {
+string path = "Resources/test.png";
+Mat img = imread(path);
+imshow("Image", img);
+waitKey(0);
+return(0);
+}
+
+- Tendremos que agregar una carpeta "Resources" conteniendo un archivo "test.png". Eso lo hacemos dando click derecho sobre el proyecto y seleccionamos abrir carpeta en el explorador de archivos.
+
+- Agregamos el archivo "Resources\test.png"
+
+- Ejecutamos el proyecto.
+
+- Se abrirá una ventana de opencv mostrando la imagen.
