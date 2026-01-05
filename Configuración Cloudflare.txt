@@ -1,0 +1,15 @@
+Exponer servicio local en internet
+
+- Registrar cuenta Cloudflare.
+- Comprar y registrar dominio en cloudflare.
+- En cloudflare ir a Zero Trust/Networks/Tunnels.
+- Create tunnel.
+- Elegir Cloudflared.
+- Asignar nombre.
+- Descargar el cliente de cloudflared e instalarlo de acuerdo a la plataforma.
+- En public hostname agregar un registro.
+- Asignar un subdominio y elegir dominio.
+- En Type elegir "HTTP".
+- En URL elegir la dirección local (por ejemplo localhost:8080, 10.0.0.1:8080, 192.168.1.2:8080)
+- Guardar.
+- Esperar unos minutos.
