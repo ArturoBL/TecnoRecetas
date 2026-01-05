@@ -1,0 +1,85 @@
+Instalar OpenCV con CUDA habilitado:
+Fuente: https://www.youtube.com/watch?v=YsmhKar8oOc&t=16s&ab_channel=TheCodingBug
+
+- Instalar Python 3.8:
+	https://www.python.org/downloads/release/python-380/
+
+-Instalar numpu:
+	pip install numpy
+
+- Instalar Visual studio community 2019:
+	https://visualstudio.microsoft.com/es/vs/community/	
+	-Habilitar desarrollo de aplicaciones de escritorio con C++
+
+- Verificar la versión de cuda de acuerdo al compute capabiity de al GPU:
+	https://developer.nvidia.com/cuda-gpus
+	https://en.wikipedia.org/wiki/CUDA
+
+- Descargar e instalar CUDA toolkit 11.0:
+	https://developer.nvidia.com/cuda-11.0-download-archive		--> preferentemente
+	https://developer.nvidia.com/cuda-downloads			
+
+- Descargar e instalar CuDNN 8.05 para cuda 11.0(Download cuDNN v8.0.5 (November 9th, 2020), for CUDA 11.0):
+	
+	https://developer.nvidia.com/rdp/cudnn-archive
+	https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.0.5/11.0_20201106/cudnn-11.0-windows-x64-v8.0.5.39.zip
+	https://developer.nvidia.com/cudnn
+	
+	- Se descarga una carpeta zip y se descomprime el contenido en (sobreescribir carpetas):
+		C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.0
+
+- Descargar e instalar CMAKE:
+	https://cmake.org/download/
+	
+- Descargar el código fuente de opencv (4.5.1):
+	https://opencv.org/releases	
+	
+- Descargar el código fuente de opencv-contrib (4.5.1, debe ser la misma versión que opencv):
+	https://github.com/opencv/opencv_contrib/releases/tag/4.5.1	
+	
+- Descomprimir las carpetas de OpenCV y OpenCV-Contrib en una carpeta que se llame c:\OpenCV_Build.
+
+- Dentro de esa carpeta crear una carpeta que se llame c:\OpenCV_Build\build
+
+- Ejecutar CMake.
+
+- Elegir la ruta del código fuente de OpenCV:
+	C:\OpenCV_Build\opencv-4.5.1
+
+- Elegir la ruta de build:
+	C:\OpenCV_Build\build
+	
+- Presionar el botón "Configure".
+
+- Elegir la versión de Visual Studio 2019.
+
+- Elegir la arquitectura x64.
+
+- Click en Finish (tardará unos minutos en procesar).
+
+- Verificar que en el log de la consola aparezca en OpenCV modules "Python3".
+
+- Activar las siguientes opciones:
+	- WITH_CUDA
+	- BUILD_opencv_dnn
+	- OPENCV_DNN_CUDA
+	- ENABLE_FAST_MATH
+	- BUILD_opencv_world
+	- Build_opencv_python3
+	- OPENCV_EXTRA_MODULES_PATH
+		- Elegir la ruta de opencv-contrib\modules:
+			C:\OpenCV_Build\opencv_contrib-4.5.1\modules
+	
+	- Click en configurar
+	- OPENCV_ENABLE_NONFREE 
+	- Habilitar CUDA_FAST_MATH
+	- seleccionar CUDA_ARCH_BIN de acuerdo con el compute capability del GPU (6.1 para GTX 1080)
+	- CMAKE_INSTALL_PREFIX: C:/OpenCV_Build/install  (Crear carpeta)
+	- CMAKE_CONFIGURATION_TYPES: Release
+
+- Click en generate.
+
+- Desde terminal ejecutar el siguiente comando(Checar que en power shell las rutas van con "/" y e command prompt con "\":
+		cmake --build "C:/OpenCV_Build/build" --target INSTALL --config Release
+	
+https://www.youtube.com/watch?v=d8Jx6zO1yw0&ab_channel=NicolaiNielsen
