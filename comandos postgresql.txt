@@ -1,0 +1,126 @@
+- Instalar postgresql:
+	sudo apt-get install postgresql
+
+- Acceder a postgresql con el usuario por defecto postres:
+	sudo -u postgres psql
+
+
+*******************  Comandos desde consola de psql	*******************
+- Listar bases de datos:
+	\l
+
+- Salir de postgresql:
+	\q
+	
+- Crear base de datos:
+	CREATE DATABASE <nombre DB>;
+
+- Conectarse a BD:
+	\c <nombre DB>;
+
+- Listar tablas:
+	\dt
+
+- Mostrar detalles de una tabla:
+	\d <tabla>
+
+- Cambiar password de usuario postgres (consola psql):
+	alter user postgres with password '<password>';
+
+****************************************************************************
+
+
+- Reiniciar servicio:
+	sudo systemctl restart postgresql
+	
+- Permitir acceso via web:
+	sudo ufw allow 5432/tcp
+	
+
+
+- Instalar pgadmin4:
+	instalar llave de repositorio:
+		curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+	
+	Crear archivo de configuración:
+		sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+	
+	Instalar pgadmin4:
+		Para instalar web y desktop:
+			sudo apt install pgadmin4
+		Para instalar desktop:
+			sudo apt install pgadmin4-desktop
+		Para instalar web:
+			sudo apt install pgadmin4-web 	
+	
+	Configurar pgadmin:
+		Ejecutar script de configuracion:
+			sudo /usr/pgadmin4/bin/setup-web.sh
+		Establecer datos de inicio de sesión (correo, password mínimo 6 caracteres):
+			em: gmail
+			p: dark32
+		Permitir acceso http y https:
+			sudo ufw allow http
+			sudo ufw allow https
+	
+	Acceder a pgadmin4:
+		http://192.168.3.34/pgadmin4
+		
+- Configurar servidor web de pgadmin:
+	sudo /usr/pgadmin4/bin/setup-web.sh
+	
+- Permitir acceso remoto:
+	Abir archivo de configuracion:
+		sudo vi /etc/postgresql/<version>/main/postgresql.conf
+	
+	Cambiar buscar y cambiar la línea que dice "#listen_addresses = 'localhost'" por:
+		listen_addresses = '*'
+	
+	Abrir y cambiar el archivo pg_hba.conf:
+		sudo vi /etc/postgresql/<version>/main/pg_hba.conf
+	
+	Agregar las siguientes líneas:
+		host 	all		all		0.0.0.0/0		md5
+		host	all		all		::/0			md5
+	
+	Reiniciar el servicio:
+		systemctl restart postgresql.service
+		
+- Para configurar nuevo servidor en pgadmin web:
+	Nombre: Cualquiera
+	Host: localhost  (aunque accedas remotamente desde browser)
+	Port: 5432
+	Maintenance DB: postgres
+	U: postgres
+	p: dark
+
+- Para instalar librerìa psycopg2 para conectar a postgresql desde python(requiere tener postgresql instalado):
+	sudo apt-get install --reinstall libpq-dev
+	sudo apt-get install python3-dev build-essential libssl-dev libffi-dev libxml2-dev libxsltl-dev zlib1g-dev python3-pip
+	sudo chown -R arturo /home/arturo/consultapg/venv/lib/python3.12/site-packages/
+	pip install psycopg2
+	
+	
+- Backup de bd remota:
+	pg_dump -U <usuario DB> -W -h <direcciòn host> <nombre DB> > <archivo.sql>
+	
+- Backup de BD con inserts independientes:
+	pg_dump -U <usuario DB> -W -h <direcciòn host> -C --column-inserts <nombre DB> > <archivo.sql>
+
+-Backup de BD comprimido:
+	pg_dump -U <usuario DB> -W -h <dirección host> <nombre DB> | gzip -9 > <archivo.gz>
+	
+- Restaurar desde archivo sql a una BD previamente creada:
+	psql -h <direcciòn host> -p <puerto> -U <usuario db> -f <DB destino> <archivo.sql>
+	
+- Restaurar desde archivo comprimido .gz a una BD previamente creada:
+	gunzip -c <archivo gz> | psql -U <usuario DB> -d <DB destino>
+	
+- Crear y restaurar DB desde un archivo .gz:
+	createdb -U <usuario DB> <DB nueva> && gunzip -c <archivo.gz> | psql -U <usuario DB> -d <DB nueva>
+	
+- Backup BD en archivo comprimido dividido en múltiples partes:
+	pg_dump -U <usuario DB> <nombre DB> | gzip | split -b 100M - <nombre_respaldo.gz_>
+
+- Restaurar desde multiples partes:
+	cat <nombre_respaldo.gz_*> | gunzip | psql -U <usuario DB> -d <nombre_base_datos_destino>
