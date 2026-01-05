@@ -1,0 +1,31 @@
+- instalar fastapi:
+	pip install fastapi
+
+- instalar jinja2:
+	pip install jinja2
+
+-instalar uvicorn:
+	pip install uvicorn
+
+- Correr uvicorn con refresh automático y permitir acceso desde red local y con un puerto definido:
+	uvicorn <archivo.py>:<nombre app> --host 0.0.0.0 --reload --port <puerto>
+	ejemplo:
+	sudo uvicorn main:app --host 0.0.0.0 --reload --port 8080
+	
+- Matar uvicorn desde una sesiòn diferente:
+	Buscamos el PID mediante:
+		lsof -i :<Puerto uvicorn>
+	Matamos el proceso mediante:
+		kill -9 <PID>
+
+
+
+- Correr fastapi mediante uvicorn con opción de autoreload:
+	uvicorn <archivo.py sin .py>:<instancia app> --reload
+	ejem: uvicorn main:app --reload
+
+- Correr con acceso desde otros equipos:		
+	uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+- Abrir puerto
+sudo ufw allow <puerto>/tcp
