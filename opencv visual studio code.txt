@@ -1,0 +1,92 @@
+Instrucciones C++, OpenCV, Cuda, VSCode
+- instalar VSCODE
+- Instalar vs build tools (Marcar c++ Build Tools)
+https://gist.github.com/Mr-Precise/9967e3fcf03f2df0282b76841d2f3876
+
+- Instalar CMAKE (seleccionar opción de añadir path para todos los usuarios)
+- Instalar OpenCV con soporte CUDA
+	- Instalar CUDA Toolkit
+		- Checar compute capability de la GPU: https://developer.nvidia.com/cuda-gpus
+		- Revisar compatibilidad del toolkit en la wiki: https://en.wikipedia.org/wiki/CUDA
+		- Descargar toolkit de acuerdo con la compatibilidad e instalarlo.
+	- Descargar fuentes opencv y opencv contrib: https://github.com/opencv
+	- Compilar OpenCV con CMAKE
+		- Instalar Visual Studio Community 2017 a 2019 y build tools misma version
+		- Ejecutar CMAKE
+		- Crear carpeta build en la dirección donde queramos instalar OpenCV (c:\OpenCv\build)
+		- Poner paths de fuente (carpeta opencv) y donde generar la build (carpeta build)
+		- Click en configurar 
+		- Seleccionar Visual studio 2017 y x64
+		- En la lista de paquetes activar WITH_CUDA
+		- Activar CUDA_FAST_MATH
+		- Activar OPENCV_EXTRA_MODULES_PATH con la carpeta de OpenCV contrib/modules
+		- Activar OPENCV_ENABLE_NONFREE para funciones 
+		- Click en Generate
+		- Ejecutar x64 Native Tools
+		- Ir a la carpeta de build
+		- Ejecutar comando: msbuild INSTALL.vcxproj /p:Configuration=Release o abrir con el botón "Open Project
+		  *Nota: También se puede abrir en Visual Studio con el botón Open Project y en el treeview de la solución dar click derecho
+			en CMakeTargets/ALL_BUILD y luego en click en build, hacer lo mismo para CMakeTargets/INSTALL
+		- Si se quieren los target release y debug se tendrá que repetir el paso anterior para el target deseado.
+
+
+		- Instrucciones en: https://www.youtube.com/watch?v=TT3_dlPL4vo&list=WL&index=50
+- Crear variable de ambiente (usuario) CMAKE_PREFIX_PATH con la ruta a la carpeta build (C:\opencv-4.x\build)
+- Agregar a la variable de ambiente PATH la ruta bin (C:\opencv-4.x\build\install\x64\vc16\bin, donde se encuentran los exes de opencv)
+
+Para crear un proyecto en VSCODE hay que:
+- Instalar extensión CMAKE tools.
+- Instalar extensión C/C++
+- Creamos y abrimos una carpeta de proyecto.
+- Presionamos Ctrl + Shift + P
+- Buscamos CMAKE Quick Start
+- Click en "Scan for kits" (primera vez)
+- Aparecerá una lista de targets de procesador, seleccionamos amd64 (o la que aplique)
+- Nos pedirá el nombre del proyecto
+- Nos crea el archivo CMakeLists, lo modificamos para que quede (ejemplo de proyecto cvtest):
+
+cmake_minimum_required(VERSION 3.0.0)
+project(cvtest VERSION 0.1.0)
+
+include(CTest)
+enable_testing()
+
+find_package(OpenCV REQUIRED)
+find_package(Threads REQUIRED)
+
+add_executable(cvtest main.cpp)
+
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+include_directories((${OpenCV_INCLUDE_DIRS}))
+target_link_libraries(cvtest ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT})
+
+
+- Creamos un código de prueba en main.cpp:
+
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+int main(int, char**) {
+    std::cout << "Starting OpenCV project!\n";
+    auto filename = "lena.jpg";
+    auto image = cv::imread(filename);
+
+    cv::imshow("image",image);
+    cv::waitKey();
+}
+
+
+- En la barra inferior verificamos que nuestro target sea release o debug dependiendo de cómo compilamos los fuentes.
+- Damos click en build.
+- Damos click en boton de run.
+
+
+Fuentes:
+https://www.youtube.com/watch?v=6nLfS6GWbXw  (c++, vscode, opencv)
+https://www.youtube.com/watch?v=TT3_dlPL4vo&list=WL&index=50  (build opencv cuda support)
