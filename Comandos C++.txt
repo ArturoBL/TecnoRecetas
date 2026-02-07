@@ -1,0 +1,9 @@
+Compilar con g++ un proyecto de opencv:
+g++ cpu_vs_cuda_video.cpp -o cpu_vs_cuda_video \
+    `pkg-config --cflags --libs opencv4
+
+
+Compilar con cmake teniendo CMakeLists.txt en la raiz del proyecto:
+cd build
+cmake ..
+make -j$(nproc)
