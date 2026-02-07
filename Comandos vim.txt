@@ -1,0 +1,90 @@
+Modo comando: 
+:
+
+Modo inserción:
+i
+
+Modo normal:
+ESC
+
+
+Salir:
+:q
+
+Salir sin preguntar:
+:q!
+
+Guardar:
+:w
+
+Guardar y salir:
+:wq
+:x
+
+Ir a inicio de archivo:
+gg
+
+Ir a fin de archivo:
+G
+
+Marcar:
+v
+
+Marcar línea:
+V
+
+Marcar todo el archivo:
+ggvG
+
+Mostrar numeros de línea:
+:set number
+
+Abrir archivo mostrando números de línea:
+vim +"set number" <archivo>
+
+Ir a un número de línea:
+:<número>
+<numero>G   (modo normal sin :)
+
+Establecer espaciado de números de línea:
+:set numberwith=<numero espacios>
+
+Configuración de VIM:
+vim ~/.vimrc
+
+Comparar archivos(bash):
+vimdiff <archivo1> <archivo2>
+vim -d <archivo1> <archivo2>
+
+Navegar entre archivos comparados:
+Ctrl+w
+
+Abrir un segundo archivo con separador:
+:vsplit
+
+Comparar archivo (ejecutar en ambos archivos):
+:diffthis
+
+Comparar archivo abierto con otro:
+:diffsplit otro_archivo
+
+Salir del modo de comparación:
+:diffoff
+
+Comparar en modo vertical:
+:vert diffsplit <archivo2>
+
+Ir a siguiente diferencia:
+]c
+
+Regresar a diferencia anterior:
+[c
+
+Copiar del otro buffer al actual:
+:diffget
+
+Enviar cambio al otro buffer:
+:diffput
+
+Configurar vim para comparar en vertical por defecto (archivo ~/.vimrc):
+set diffopt+=vertical
