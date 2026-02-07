@@ -1,0 +1,43 @@
+
+sudo apt update
+sudo apt install -y wget gnupg software-properties-common
+
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+
+sudo apt update
+
+sudo apt install -y cuda-toolkit-12-9
+
+nano ~/.bashrc
+
+Agregar:
+export CUDA_HOME=/usr/local/cuda-12.9
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+
+
+nvcc --version
+
+nvidia-smi
+
+descargaar cudnn desde el sitio de nvidia de acuerdo a la vesión de cuda
+
+cd ~/Downloads
+tar -xf cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar.xz
+
+sudo cp cudnn-linux-x86_64-8.9.7.29_cuda12-archive/include/cudnn*.h \
+    /usr/local/cuda-12.9/include/
+
+sudo cp cudnn-linux-x86_64-8.9.7.29_cuda12-archive/lib/libcudnn* \
+    /usr/local/cuda-11.8/lib64/
+
+grep -A2 CUDNN_MAJOR /usr/local/cuda-12.9/include/cudnn_version.h
+
+ls /usr/local/cuda-12.9/lib64 | grep cudnn
+
+python3 -m venv torch-gpu
+source torch-gpu/bin/activate
+pip install --upgrade pip
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu129
+

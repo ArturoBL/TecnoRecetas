@@ -1,0 +1,49 @@
+
+
+sudo apt update
+sudo apt install -y \
+  build-essential cmake git pkg-config \
+  libgtk-3-dev libcanberra-gtk3-dev \
+  libavcodec-dev libavformat-dev libswscale-dev \
+  libv4l-dev libxvidcore-dev libx264-dev \
+  libjpeg-dev libpng-dev libtiff-dev \
+  gfortran openexr \
+  libatlas-base-dev liblapack-dev \
+  python3-dev python3-numpy
+
+git clone https://github.com/opencv/opencv.git
+git clone https://github.com/opencv/opencv_contrib.git
+
+cd opencv && git checkout 4.12.0
+cd ../opencv_contrib && git checkout 4.12.0
+
+mkdir build && cd build
+
+
+cmake \
+-D CMAKE_BUILD_TYPE=RELEASE \
+-D CMAKE_INSTALL_PREFIX=/usr/local \
+-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+-D CUDNN_INCLUDE_DIR=/usr/local/cuda-12.9/include \
+-D CUDNN_LIBRARY=/usr/local/cuda-12.9/lib64/libcudnn.so \
+-D WITH_CUDA=ON \
+-D WITH_CUDNN=ON \
+-D OPENCV_DNN_CUDA=ON \
+-D CUDA_ARCH_BIN=7.5 \
+-D BUILD_opencv_python3=ON \
+..
+
+sudo ln -s /usr/local/cuda-12.9/include/cudnn*.h /usr/include/
+sudo ln -s /usr/local/cuda-12.9/lib64/libcudnn* /usr/lib/x86_64-linux-gnu/
+
+sudo ln -s libcudnn_cnn_infer.so.8.9.7 libcudnn_cnn_infer.so.8
+
+make -j$(nproc)
+sudo make install
+sudo ldconfig
+
+
+*Nota: si al ejecutar ldconfig obtenemos un error como este:
+/sbin/ldconfig.real: /usr/local/cuda/targets/x86_64-linux/lib/libcudnn_cnn_infer.so.8 is not a symbolic link
+
+Hay que eliminar el archivo o eliminar el symbolic link

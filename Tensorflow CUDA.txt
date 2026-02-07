@@ -1,0 +1,39 @@
+python3 -m pip install 'tensorflow[and-cuda]'
+
+
+
+  WARNING: The script pygmentize is installed in '/home/arturo/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script markdown_py is installed in '/home/arturo/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script normalizer is installed in '/home/arturo/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script tensorboard is installed in '/home/arturo/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script markdown-it is installed in '/home/arturo/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The scripts import_pb_to_tensorboard, saved_model_cli, tensorboard, tf_upgrade_v2, tflite_convert and toco are installed in '/home/arturo/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+
+
+
+
+python3 - << 'EOF'
+import tensorflow as tf
+print("TF CUDA:", tf.sysconfig.get_build_info()["cuda_version"])
+print("TF cuDNN:", tf.sysconfig.get_build_info()["cudnn_version"])
+print("TensorFlow:", tf.__version__)
+print("GPUs:", tf.config.list_physical_devices('GPU'))
+EOF
+
+python - << 'EOF'
+import tensorflow as tf
+import time
+
+a = tf.random.normal([4096,4096])
+b = tf.random.normal([4096,4096])
+
+start = time.time()
+c = tf.matmul(a, b)
+print("Tiempo:", time.time() - start)
+EOF
