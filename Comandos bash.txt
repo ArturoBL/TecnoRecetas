@@ -1,3 +1,12 @@
+Copiar archivo:
+cp <archivo> <destino>
+
+Mover archivo:
+mv <archivo> <destino>
+
+Renombrar archivo:
+mv <archivo> <nuevo nombre o ubicación>
+
 Listar archivos con detalles:
 ls -l
 
