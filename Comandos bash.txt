@@ -1,2 +1,17 @@
+Listar archivos con detalles:
+ls -l
+
+Listar con detalles incluyendo ocultos:
+ls -la
+
+Listar mostrando tamaño en formato legible:
+ls -lh
+
+Listar ordenado por tamaño:
+ls -ls
+
+Listar en orden invertido:
+ls -lr
+
 Crear un enlace simbólico:
 ln -s /mnt/ssd/datos /home/arturo/datos
