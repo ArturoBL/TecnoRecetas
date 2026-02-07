@@ -1,0 +1,2 @@
+Crear un enlace simbólico:
+ln -s /mnt/ssd/datos /home/arturo/datos
