@@ -22,5 +22,63 @@ ls -ls
 Listar en orden invertido:
 ls -lr
 
+Permisos de archivo con código numérico:
+chmod 777 <archivo>
+7   7   7
+│   │   └── Otros (others)
+│   └────── Grupo (group)
+└────────── Propietario (user)
+
+Cada dígito representa los permisos de lectura, escritura en modo binario de 3 bits:
+| Permiso       | Valor |
+| ------------- | ----- |
+| `r` (read)    | 4     |
+| `w` (write)   | 2     |
+| `x` (execute) | 1     |
+
+chmod 644 archivo.txt     # rw-r--r--
+chmod 755 script.sh       # rwxr-xr-x
+chmod 700 secreto.key     # rwx------
+chmod 777 archivo         # rwxrwxrwx (⚠️ peligro)
+
+Permisos en modo simbólico:
+chmod [quién][operador][permiso] archivo
+
+Quién:
+| Letra | Significado  |
+| ----- | ------------ |
+| u     | user (dueño) |
+| g     | group        |
+| o     | others       |
+| a     | all (u+g+o)  |
+
+Operador:
+| Símbolo | Acción             |
+| ------- | ------------------ |
+| `+`     | agrega permiso     |
+| `-`     | quita permiso      |
+| `=`     | asigna exactamente |
+
+Permisos:
+r w x
+
+Por ejemplo quitar permisos de escritura a otros:
+chmod o-w archivo.txt
+
+Dar permisos de ejecución a todos para un archivo:
+chmod +x script.sh    (no se especifica a quién)
+equivalente a: 
+chmod a+x script.sh
+
+Dar permisos completos al dueño y solo lectura al resto:
+chmod u=rwx,go=r archivo
+
+Dar permisos 755 recursivamente a una carpeta y su contenido: 
+chmod -R 755 carpeta
+
+Mediante una búsqueda:
+find carpeta -type d -exec chmod 755 {} \;    (asigna a todo lo que encuentre de tipo d (directorio) el permiso 755) 
+find carpeta -type f -exec chmod 644 {} \;    (asigna a todo lo que encuentre de tipo f (archivo) el permiso 644) 
+ 
 Crear un enlace simbólico:
 ln -s /mnt/ssd/datos /home/arturo/datos
