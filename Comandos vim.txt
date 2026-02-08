@@ -7,7 +7,6 @@ i
 Modo normal:
 ESC
 
-
 Salir:
 :q
 
@@ -36,6 +35,23 @@ V
 Marcar todo el archivo:
 ggvG
 
+Copiar seleccion (comando v):
+y
+
+Cortar la selección (comando v):
+d
+
+Pegar lo copiado:
+p
+
+Eliminar línea actual:
+dd
+
+Eliminar varias líneas:
+<número>dd
+Por ejemplo: 3dd para eliminar 3 líneas.
+
+
 Mostrar numeros de línea:
 :set number
 
@@ -45,6 +61,36 @@ vim +"set number" <archivo>
 Ir a un número de línea:
 :<número>
 <numero>G   (modo normal sin :)
+
+Buscar texto hacia adelante:
+/<patrón>
+
+Buscar texto hacia atrás:
+?<patrón>
+
+Ir a siguiente coincidencia:
+n
+
+Ir a coincidencia anterior:
+N
+
+Busca palabra bajo el cursor hacia adelante:
+*
+
+Busca palabra bajo el cursor hacia atrás:
+#
+
+Limpiar resaltado de búsqueda:
+:noh
+
+Buscar y reemplazar en todo el archivo:
+:%s/<texto a buscar>/<texto nuevo>g
+
+Buscar y reemplazar pero pidiendo confirmación:
+:%s/<texto a buscar>/<texto nuevo>gc
+
+Para ignorar mayúsculas/minúsculas:
+:det ignorecase
 
 Establecer espaciado de números de línea:
 :set numberwith=<numero espacios>
