@@ -140,3 +140,25 @@ zip <archivo>
 Descomprimir archivo:
 unzip <archivo>
 
+Apagar inmediatamente:
+sudo shutdown -h nos
+
+Reiniciar inmediatamente:
+sudo shutdown -r now
+sudo reboot
+
+Apagar en <número> de minutos:
+sudo shutdown -h +<número>
+
+Cancelar apagado o reinicio programado:
+sudo shutdown -c
+
+Enviar un mensaje a los usuarios sin apagar el sistema:
+sudo shutdown -k "<mensaje>"
+
+Apagado programado con mensaje:
+sudo shutdown +<número> "<mensaje>"
+
+Reiniciar en modo setup del bios:
+systemctl reboot --firmware-setup
+
