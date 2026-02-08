@@ -82,3 +82,61 @@ find carpeta -type f -exec chmod 644 {} \;    (asigna a todo lo que encuentre de
  
 Crear un enlace simbólico:
 ln -s /mnt/ssd/datos /home/arturo/datos
+
+Mostrar las últimas líneas de un archivo:
+tail <archivo>
+
+Mostrar las últimas <número> líneas de un <archivo>:
+tail -n <numero> <archivo>
+
+Mostrar los últimos <número> bytes de un <archivo>:
+tail -c <número> <archivo>
+
+Monitorear actualizaciones de un <archivo> mientras ocurren:
+tail -f <archivo>
+
+Crea archivo:
+touch <archivo>
+
+Mostrar el contenido de un archivo:
+cat <archivo>
+
+Mostrar espacio en disco:
+df -h
+
+Mostrar memoria disponible:
+free -m
+
+Mostrar tamaño de un folder:
+du -sh <directorio>
+
+Mostrar procesos en ejecución:
+ps -ef
+
+Mostrar los procesos en vivo:
+top
+
+Detener un proceso:
+kill <PID>
+
+Mostrar información de las interfaces de red:
+ip a
+
+Enviar ping a una dirección:
+ping <dirección>
+
+Obtener la respuesta de una dirección:
+curl <dirección>
+
+Borrar el contenido de la pantalla:
+clear
+
+Mostrar salida a consola:
+echo "<texto>"
+
+Comprimir archivo:
+zip <archivo>
+
+Descomprimir archivo:
+unzip <archivo>
+
