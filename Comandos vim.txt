@@ -7,6 +7,9 @@ i
 Modo normal:
 ESC
 
+Modo visual (seleccionar):
+v
+
 Salir:
 :q
 
@@ -43,6 +46,16 @@ d
 
 Pegar lo copiado:
 p
+
+Copiar al portapapeles del sistema(requiere +clipboard):
+"+y
+
+Verificar si vim tiene +clipboard desde bash:
+vim --version | grep clipboard
+
+Instalar versión con +clipboard:
+sudo apt install vim-gtk3
+
 
 Eliminar línea actual:
 dd
@@ -134,3 +147,5 @@ Enviar cambio al otro buffer:
 
 Configurar vim para comparar en vertical por defecto (archivo ~/.vimrc):
 set diffopt+=vertical
+
+
