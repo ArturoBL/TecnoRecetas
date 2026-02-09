@@ -1,0 +1,225 @@
+Fuente: https://www.youtube.com/watch?v=jSJ8xhKtfP4&list=PLTd5ehIj0goMCnj6V5NdzSIHBgrIXckGU
+git --version																(Mostrar versión de Git)
+git init																	(Inicializar repositorio)
+
+git add <_archivos_>														(Agregar archivos a stage)
+git commit -m "<_comentario_>"												(Commit cambios)
+git commit --amend															(Agregar cambios al último commit hecho sin generar un nuevo commit)
+git show <objeto>															(Muestra información sobre un objeto como un commit, un tag, etc.)                                        
+archivo .gitignore  														(agregar archivos o carpetas que se van a ignorar)
+https://github.com/github/gitignore                                         (Repositorio de archivos .gitignore para varios lenguajes)
+!_patron_																	(para hacer excepciones en el archivo .gitignore, por ejemplo !spec/*.json excluirá los archivos json de la carpeta spec aún si existe un patrón *.json
+
+archivo .gitattributes                                                      (archivo para configurar como serán tratados los archivos o extensiones)
+text=auto                                                                   (normaliza los LF para tratar texto en archivo .gitattributes)
+*.cs diff=csharp                                                            (trata extensión .cs como lenguaje C#)
+*.csproj merge=union                                                        (Define la estrategia de merge como unión)
+*.txt diff=astextplain                                                      (Trata la extensión txt como texto plano)
+*Nota: si algunos archivos no son tratados como texto aunque se definan en el archivo de .gitattributes se puede intentar guardar en formato UTF-8
+
+
+
+Ctrl + L 																	(borrar pantalla bash)
+
+
+//Información de cambios
+
+git status																	(mostrar status de cambios)
+git status -s   															(mostrar status resumido)
+git log 																	(log detallado de commits)
+git log --oneline															(log resumido de commits con sus hash)
+git log --oneline --all                                                     (Log para ver todos los commits)
+git log --oneline --all --graph                                                   (Se muestran las ramas en forma de grafo)
+git log --oneline --follow -- <_archivo_>									(Muestra los commits en los que ha cambiado un archivo)
+git diff  																	(para ver diferencias en archivos antes de staged)                                       
+git diff --staged 															(diferencias en staged)
+git diff <_hash1_> <_hash2_>												(diferencias entre 2 commits)
+git diff HEAD~1 HEAD														(diferencia entre el último commit y el anterior, cambiar el 1 por el número de commits anteriores)
+git log -p -M --follow --stat -- _archivo_                                  (muestra historial de todos los cambios del archivo y quien hizo cada cambio)
+git blame -- _archivo_                                                      (muestra quien hizo los cambios en cada línea del archivo)
+git blame _hash_ -- _archivo_                                               (Muestra información de quien hizo cada cambio en un hash específico)
+git blame -L _rango_lineas_ _hash_ -- _archivo_                             (muestra información de quien hizo los cambios en un archivo en un rango de lineas, en un hash específico, P.Ej. -L 2,4 para las líneas 2 a 4)
+git diff --name-only --diff-filter=U --relative                             (lista archivos con conflictos)
+
+//Restablecer archivos
+                                        
+git reset HEAD -- <_archivo_>												(regresar archivos en staged a status sin agregar, de verde a rojo)
+git checkout -- <_archivo_>	    											(regresar cambios en archivos que no están en staged a su status del último commit, de rojo a sin modificar)
+git restore --staged <_archivos_>											(regresar de staged el o los archivos, de verde a rojo)
+git restore <_archivos_>													(descartar cambios previamente regresados de stagged o sin haberlos pasado a staged, de rojo a sin modificar)
+git checkout <_hash_> -- <_archivos_>                                       (Restablece archivos desde un commit indicado hacia el working directory)
+git reset --soft HEAD~1								(Regresar todos los archivos a staged)
+git restore --staged .								(Regresar todos los archivos a unstaged)
+
+//Revertir commits
+git checkout <_hash_>														(cambia al commit específico)
+git checkout <_ramaprincipal_>												(para regresar al status original después del comando checkout _hash_)
+git reset <_hash_>															(restablece el estado a los archivos incluidos en el commit específico, para restaurar los archivos por completo se requiere restore _archivo_ o checkout -- _archivo_)
+git reset --hard <_hash_>													(restablece el estado y restaura archivos al status del commit indicado, incluyendo modificaciones, eliminaciones, etc.)
+git reset --soft <_hash_>													(restablece el estado a staged)
+git revert <_hash_>															(Revierte cambios hechos en un commit indicado sin destruir el historial posterior de commits generando así un nuevo commit)
+git revert --no-commit <_hash_>												(Revierte cambios hechos en un commit indicado sin generar un nuevo commit, útil para revertir dos o mas commits)
+git revert -n <_hash_>												        (Revierte cambios hechos en un commit indicado sin generar un nuevo commit, útil para revertir dos o mas commits)
+git revert --continue														(Finaliza el revert --nocommit generando un nuevo commit)
+
+
+//Limpiar cache cuando gitignore no ignora cambios en ciertos archivos, antes de usarlo hay que asegurarse de que se haya hecho el commit en los archivos que si queremos mantener
+git rm -rf --cached .
+git add .
+git commit -m "_comentario_"
+
+git rm --cached _archivos_                                                  (Elimina archivos del caché sin eliminar del working directory, útil para usar con .gitignore si queremos quitar archivos de alguna extensión del indexado pero no lo queremos eliminar del directorio)
+                                       
+git rm _archivos_															(borrar archivo y agregar a staged)
+git mv <_archivos_>															(mover archivo y agregar a staged)
+
+
+//Manejo de ramas.                                      
+git branch																	(mostrar las ramas,en verde la actual)
+git branch -a                                                            	(Mostrar todas las ramas, incluyendo las remotas)
+git branch <_rama_>                                                         (Crear una nueva rama)
+git checkout -b <_rama_>			    									(crear una nueva rama y cambia el flujo a la nueva rama)
+git checkout <_rama_>														(cambiar de rama)
+git branch --delete <_rama_>  												(borrar rama desde otra rama)
+git branch -d <_rama_>  											        (borrar rama desde otra rama)
+git branch -D <_rama_>  											        (forzar eliminación rama desde otra rama)
+git merge <_rama_>															(ejecutar desde master y escribir la rama que se le va a unir)
+git merge --abort                                                           (cancela el merge y regresa el status al commit anterior)
+git branch -M <_rama_>														(establecer como rama principal main)
+git branch -m <_rama_> <_nuevo_nombre_>                                     (Renombrar rama)
+git show <_rama_>                                                           (Muestra información sobre la rama)
+git switch <_rama_>                                                         (cambia a la rama especificada)
+git switch --orphan <_rama_>                                                (Crea y cambia a una rama huérfana, sin archivos ni commits asociados, posible uso para rama de documentación)
+git switch --dicard-changes <_rama_>                                        (Cambia a una rama y descarta cambios en staged y unstaged)
+
+
+
+//Repositorios remotos
+git remote add origin https://github.com/<_usuario_>/<_repositorio_>.git	(Agregar rama remota)
+git push -u origin main														(subir rama main al repositorio remoto)
+git pull origin _rama_                                                      (Actualiza la rama desde el repositorio remoto)
+git clone https://github.com/<_usuario_>/<_repositorio_>.git                (Clona el repositorio remoto en la carpeta de trabajo actual previamente creada)
+git remote remove origin													(Eliminar url remoto)
+git remote set-url origin https://github.com/<_usuario_>/<_repositorio_>.git	(Establece la url al repositorio remoto)
+
+
+//crear nuevo repositorio
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/<_usuario_>/<_repositorio_>.git
+git push -u origin main
+
+
+//push repositorio existente
+git remote add origin https://github.com/<_usuario_>/<_repositorio_>.git
+git branch -M main
+git push -u origin main
+
+
+//Agregar remote origin
+git remote set-url origin https://<_usuario_>:<_token_>@github.com/<_usuario_>/<_repositorio_>.git
+
+
+//Cargar localmente un repositorio remoto
+git init
+git remote add origin https://github.com/usuario/repositorio.git
+git remote set-url origin https://<_usuario_>:<_token_>@github.com/<_usuario_>/<_repositorio_>.git
+git pull origin <_rama_>  		(main, master, o rama específica)
+
+
+//Flujo de trabajo
+-Antes de modificar hacer pull a main
+-Hacer checkout de la rama que se va a modificar
+-Add de los archivos modificados
+-Commit en la rama de trabajo
+-Hacer push en la rama de trabajo
+
+//Para pasar a productivo
+-Después del flujo de trabajo (después del commit en la rama o del push)
+-Hacer pull a main
+-hacer merge de la rama de trabajo a main
+-Hacer push a main
+
+******************************
+
+//Stash			
+git stash																	(para guardar en la pila lo que se tiene actualmente en staged o sin agregar)
+git stash list                                                              (muestra el contenido de la pila)
+git stash apply                                                             (Aplica los cambios guardados en el último elemento de stash)
+git stash drop                                                              (elimina el último elemento de stash)
+git stash save "<_comentario_>"                                             (Guarda en la pila con un comentario)
+git stash show stash@\{<_numero_>\}                                         (Muestra información del stash indicado en _numero_)
+git stash pop                                                               (Saca de la pila el último elemento y lo deja en rojo, equivalente a apply + drop)
+git stash branch <_rama_> <_stash_>                                         (Convierte el contenido de un stash en una rama)
+
+
+
+//remotos
+git remote add origin https://github.com/<_usuario_>/<_repositorio_>.git        (Agrega fuente remota con el nombre origin)
+git remote                                                                  (Muestra remotes registrados)
+git remote -v                                                               (Muestra información sobre remotes)
+git push origin <_rama_>                                                      (Envía cambios al repositorio remoto, puede requerir información de autenticación)
+git clone https://github.com/<_usuario_>/<_repositorio_>.git                    (Clona el repositorio)
+git pull origin <_rama_>                                                      (Actualiza desde el repositorio remoto)
+git fetch origin                                                            (Comprueba y descarga actualizaciones en el remote)
+git merge origin/master                                                     (Hace merge con la rama remota, un pull es equivalente a un fetch y un merge)    
+git pull --rebase                                                           (Actualiza desde el repositorio sin hacer commit)
+git remote rm origin														(elimina el remoto origin)
+
+git grep 'texto'															(Busca el texto en el código del working directory, soporta expresiones regulares)
+git grep -- <archivo/carpeta> '<texto a buscar>'							(Busca el texto en el código del archivo o carpeta especificada)
+git grep -i '<texto a buscar>'												(Busca el texto sin tomar en cuenta mayúsculas/minúsculas)
+git grep -w '<texto a buscar>'												(Busca el texto sólo como palabra separada, sin tomar ocurrencias con prefijos, sufijos, etc.)
+git grep -C <número de líneas de contexto> '<texto a buscar>'				(Busca el texto mostrando un numero de líneas antes y después como contexto)
+git grep -n '<texto a buscar>'												(Busca el texto mostrando el número de línea de código)
+git grep -h '<texto a buscar>'												(Busca el texto sin mostrar el nombre del archivo)
+git grep -H '<texto a buscar>'												(Busca el texto mostrando el nombre del archivo)
+
+
+//Configuración
+git config --global init.defaultBranch <_rama_>                             (Configura el nombre de la rama principal por defecto)
+
+//alias
+git config --global alias.<_alias_> '<_comandos_>'                          (Definir un alias en la configuración global)
+git config --global -get-regexp alias                                       (Muestra las configuraciones que coinciden con "alias", es decir, muestra los alias definidos)
+git config --global --unset alias.<_alias_>                                 (Elimina el alias)
+
+//alias útiles
+git config --global alias.lodag 'log --oneline --decorate --all --graph'
+git config --global alias.lod 'log --oneline --decorate'
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.pumain 'push -u origin main'
+git config --global alias.conflicts "diff --name-only --diff-filter=U"
+
+
+//Tags
+git tag <_tag_>                                                             (Define un tag para el commit HEAD)
+git tag <_tag_> <_hash_>                                                    (Define un tag para un hash específico)
+git tag -d <_tag_>                                                          (Elimina un tag)
+git tag -l                                                                  (Listar tags)
+git tag -l "V0.*.0"                                                         (Listar tags que coinciden con el criterio "V0.*.0")
+git tag -a <_tag_>                                                          (Definir tag con anotación)
+git show <_tag_>                                                            (Muestra información sobre el tag)
+git tag                                                                     (Muestra los tags)
+git tag <_tag_> -m "_comentario_"                                           (Crea tag con comentario)
+git push --tags                                                             (Manda los tags al repositorio remoto, necesario para crear release en Github)
+git push origin <_tag_>                                                     (Se manda un tag específico al repositorio remoto)
+git push origin <_rama_> --tags                                             (Se mandan los tags de una rama específica al repositorio remoto)
+
+
+//Otras configuraciones
+git config --global init.defaultBranch main                                 (Establece el nombre por defecto de la rama principal como "main")
+git config --global user.name "_nombre_"									(Definir nombre de quien hace las modificaciones)
+git config --global user.email _email_										(Correo de quien hace las modificaciones)
+git config --list															(Muestra los parámetros de configuración y sus valores)
+git config _parametro_														(Muestra el valor del parámetro de configuración)
+
+
+//Carpetas git
+.git\logs\refs\heads                                                        (Log de commits, se pueden ver commits que no se han )
+.git\hooks                                                                  (Scripts de ejemplo para diferentes fines)
+.git\refs\heads                                                             (Lista de ramas)
+.git\refs\remotes                                                           (Lista de remotes)
+.git\logs\refs\remotes\origin                                               (Log de push a los remotes)
