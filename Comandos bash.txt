@@ -7,6 +7,75 @@ mv <archivo> <destino>
 Renombrar archivo:
 mv <archivo> <nuevo nombre o ubicación>
 
+Borrar comando escrito en bash:
+Ctrl+U
+
+Borrar desde el cursor hacia el final:
+Ctrl+K
+
+Borrar palabra anterior al cursor:
+Ctrl+W
+
+Borrar la palabra del cursor hacia adelante:
+Alt+D
+
+Ir al inicio de la línea:
+Ctrl+A
+
+Ir al final de la línea:
+Ctrl+E
+
+Pegar lo último borrado:
+Ctrl+Y
+
+Intercambiar los últimos caracteres:
+Ctrl+T
+
+Intercambiar las últimas palabras:
+Alt+T
+
+Entrar a busqueda en historial:
+Ctrl+R    (escribir parte de lo buscado)
+
+Siguiente coincidencia:
+Ctrl+R
+
+Ejecutar:
+Enter
+
+Cancelar búsqueda:
+Ctrl+G
+
+Búsqueda hacia adelante:
+Ctrl+S
+
+Repetir último commando:
+!!
+
+Último argumento del comando anterior:
+!$
+
+Todos los argumentos del comando anterior:
+*! **
+
+Traer cada argumento del comando anterior:
+Alt+.
+
+Modo vim en bash:
+set -o vi
+
+Modo normal:
+Esc
+
+Insertar:
+i
+
+Otros comandos vim en bash:
+0, $, w, b, dw, dd
+
+Para hacerlo permanente:
+echo "set -o vi" >> ~/.bashrc
+
 Listar archivos con detalles:
 ls -l
 
