@@ -64,8 +64,22 @@ Eliminar varias líneas:
 <número>dd
 Por ejemplo: 3dd para eliminar 3 líneas.
 
+Eliminar la palabra en la posición del cursor:
+diw
 
-Mostrar numeros de línea:
+Eliminar desde la posición del cursor hasta el inicio de la siguiente palabra:
+dw
+
+Elimina palabra incluyendo espacio:
+daw
+
+Elimina desde el cursor hasta el inicio de la palabra anterior:
+db
+
+Elimina las siguientes 3 palabras:
+d3w
+
+Mostrar números de línea:
 :set number
 
 Abrir archivo mostrando números de línea:
