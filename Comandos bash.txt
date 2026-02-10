@@ -231,3 +231,13 @@ sudo shutdown +<número> "<mensaje>"
 Reiniciar en modo setup del bios:
 systemctl reboot --firmware-setup
 
+Mostrar el renderer usado por el sistema:
+glxinfo | grep "OpenGL renderer"
+
+Seleccionar renderer (NVIDIA):
+sudo prime-select nvidia
+reboot
+
+Seleccionar renderer (Intel):
+sudo prime-select intel
+
