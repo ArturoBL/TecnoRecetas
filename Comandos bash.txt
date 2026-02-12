@@ -152,6 +152,8 @@ find carpeta -type f -exec chmod 644 {} \;    (asigna a todo lo que encuentre de
 Listar archivos ejecutables:
 find . -type f -executable
 
+Eliminar archivos ejecutables:
+find . -type f -executable -delete
 
 Crear un enlace simbólico:
 ln -s /mnt/ssd/datos /home/arturo/datos
