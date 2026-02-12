@@ -241,3 +241,5 @@ reboot
 Seleccionar renderer (Intel):
 sudo prime-select intel
 
+Mostrar monitoreo de procesos GPU:
+watch -n 0.5 nvidia-smi
