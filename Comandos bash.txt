@@ -149,6 +149,10 @@ Mediante una búsqueda:
 find carpeta -type d -exec chmod 755 {} \;    (asigna a todo lo que encuentre de tipo d (directorio) el permiso 755) 
 find carpeta -type f -exec chmod 644 {} \;    (asigna a todo lo que encuentre de tipo f (archivo) el permiso 644) 
  
+Listar archivos ejecutables:
+find . -type f -executable
+
+
 Crear un enlace simbólico:
 ln -s /mnt/ssd/datos /home/arturo/datos
 
