@@ -13,38 +13,16 @@ git clone https://github.com/opencv/opencv.git
 git clone https://github.com/opencv/opencv_contrib.git
 
 cd opencv
-git checkout 4.9.0
+git checkout 4.8.0
 cd ../opencv_contrib
-git checkout 4.9.0
+git checkout 4.8.0
 
-*Nota: para habilitar soporte de ffmpeg
-editar el archivo:
-opencv/modules/videoio/src/cap_ffmpeg_impl.hpp
-
-
-Remplazar esta línea:
-avcodec_close(context);
-por esta:
-avcodec_free_context(&context);
-
-Remplazar esta línea:
-av_stream_get_side_data(video_st, AV_PKT_DATA_DISPLAYMATRIX, NULL)
-Por estas líneas:
-AVPacketSideData* sd = video_st->codecpar->coded_side_data;
-int nb_sd = video_st->codecpar->nb_coded_side_data;
-if (sd && nb_sd > 0)
-{
-    const AVPacketSideData* mtx = av_packet_side_data_get(sd, nb_sd, AV_PKT_DATA_DISPLAYMATRIX);
-    if ( mtx != NULL )
-    {
-        data = mtx->data;
-    }
-}
-
+*Nota para habilitar FFMPEG, CUDA, GSTREAMER ver comandos de instalaciòn antes de instalar opencv
 
 cmake \
 -D CMAKE_BUILD_TYPE=RELEASE \
 -D CMAKE_INSTALL_PREFIX=/usr/local \
+-D PKG_CONFIG_EXECUTABLE=/usr/bin/pkg-config \
 -D OPENCV_GENERATE_PKGCONFIG=ON \
 -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
 -D OPENCV_ENABLE_NONFREE=ON \
