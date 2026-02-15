@@ -1,0 +1,24 @@
+sudo apt update
+sudo apt install -y \
+gstreamer1.0-tools \
+gstreamer1.0-plugins-base \
+gstreamer1.0-plugins-good \
+gstreamer1.0-plugins-bad \
+gstreamer1.0-plugins-ugly \
+gstreamer1.0-libav
+
+Verificar con:
+gst-inspect-1.0 | grep decode
+
+gst-inspect-1.0 | grep nv
+
+Se deben ver los siguientes codecs:
+nvh264dec
+nvh265dec
+nvvidconv
+
+Desde OpenCV compilado con la opción -D WITH_GSTREAMER=ON, ejecutamos:
+python3 -c "import cv2; print(cv2.getBuildInformation())" | grep GStreamer
+
+Debemos ver:
+GStreamer: YES
