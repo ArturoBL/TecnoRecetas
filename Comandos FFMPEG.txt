@@ -1,0 +1,40 @@
+Compilaciòn e instalación de FFMPEG con soporte de CUDA para usar con OpenCV
+
+Estas instrucciones son para la compatibilidad del siguiente sistema:
+Ubuntu 22.04
+CUDA 11.8
+OpenCV 4.8
+Driver nvidia: 590.48.01
+
+git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+cd nv-codec-headers
+git checkout n11.1.5.2
+sudo make install
+
+cd ~
+git clone https://github.com/FFmpeg/FFmpeg.git ffmpeg
+cd ffmpeg
+git checkout n5.1.8
+
+./configure \
+--prefix=/usr/local \
+--enable-gpl \
+--enable-nonfree \
+--enable-shared \
+--disable-static \
+--enable-cuda-nvcc \
+--enable-nvenc \
+--enable-nvdec \
+--enable-libnpp \
+--extra-cflags=-I/usr/local/cuda/include \
+--extra-ldflags=-L/usr/local/cuda/lib64
+
+make -j$(nproc)
+
+sudo make install
+
+Compilar e instalar opencv con la opciòn: 
+-D WITH_FFMPEG=ON
+
+Verificamos si Opencv tiene habilitado FFMPEG:
+python3 -c "import cv2; print(cv2.getBuildInformation())" | grep FFMPEG
