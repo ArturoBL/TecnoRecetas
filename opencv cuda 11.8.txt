@@ -62,3 +62,6 @@ Verificar:
 make -j$(nproc)
 sudo make install
 sudo ldconfig
+
+Verificar configuración de OpenCV:
+python3 -c "import cv2; print(cv2.getBuildInformation())" 
