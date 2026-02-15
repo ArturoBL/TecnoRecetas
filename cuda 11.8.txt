@@ -12,3 +12,15 @@ echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH' >> ~/.
 source ~/.bashrc
 
 nvcc --version
+
+
+Para ver informaciòn de cuda:
+nvidia-smi
+
+Para ver procesos de cuda:
+watch -n1 nvidia-smi
+
+Para monitorear de forma visual cores GPU:
+sudo add-apt-repository ppa:flexiondotorg/nvtop
+sudo apt update
+sudo apt install nvtop
