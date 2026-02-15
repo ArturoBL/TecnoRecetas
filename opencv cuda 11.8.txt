@@ -17,6 +17,31 @@ git checkout 4.9.0
 cd ../opencv_contrib
 git checkout 4.9.0
 
+*Nota: para habilitar soporte de ffmpeg
+editar el archivo:
+opencv/modules/videoio/src/cap_ffmpeg_impl.hpp
+
+
+Remplazar esta línea:
+avcodec_close(context);
+por esta:
+avcodec_free_context(&context);
+
+Remplazar esta línea:
+av_stream_get_side_data(video_st, AV_PKT_DATA_DISPLAYMATRIX, NULL)
+Por estas líneas:
+AVPacketSideData* sd = video_st->codecpar->coded_side_data;
+int nb_sd = video_st->codecpar->nb_coded_side_data;
+if (sd && nb_sd > 0)
+{
+    const AVPacketSideData* mtx = av_packet_side_data_get(sd, nb_sd, AV_PKT_DATA_DISPLAYMATRIX);
+    if ( mtx != NULL )
+    {
+        data = mtx->data;
+    }
+}
+
+
 cmake \
 -D CMAKE_BUILD_TYPE=RELEASE \
 -D CMAKE_INSTALL_PREFIX=/usr/local \
@@ -25,10 +50,14 @@ cmake \
 -D OPENCV_ENABLE_NONFREE=ON \
 -D WITH_CUDA=ON \
 -D WITH_CUDNN=ON \
+-D OPENCV_DNN_CUDA=ON \
 -D BUILD_opencv_cudaarithm=ON \
 -D BUILD_opencv_cudaimgproc=ON \
 -D BUILD_opencv_cudawarping=ON \
 -D BUILD_opencv_cudafilters=ON \
+-D BUILD_opencv_cudacodec=ON \
+-D WITH_FFMPEG=ON \
+-D WITH_GSTREAMER=ON \
 -D OPENCV_DNN_CUDA=ON \
 -D CUDA_ARCH_BIN=7.5 \
 -D CUDA_ARCH_PTX= \
@@ -45,7 +74,6 @@ cmake \
 -D BUILD_EXAMPLES=OFF \
 ..
 
-NARANJOSGAMER
 Verificar:
     --   NVIDIA CUDA:                   YES
     --     cuDNN:                       YES
