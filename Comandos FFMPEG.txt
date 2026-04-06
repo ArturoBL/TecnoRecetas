@@ -16,6 +16,8 @@ git clone https://github.com/FFmpeg/FFmpeg.git ffmpeg
 cd ffmpeg
 git checkout n5.1.8
 
+sudo apt-get install -y nasm yasm
+
 ./configure \
 --prefix=/usr/local \
 --enable-gpl \
