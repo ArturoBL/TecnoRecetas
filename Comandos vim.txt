@@ -10,6 +10,9 @@ ESC
 Modo visual (seleccionar):
 v
 
+Deshacer último cambio:
+u
+
 Salir:
 :q
 
@@ -35,6 +38,9 @@ v
 Marcar línea:
 V
 
+Seleccionar hasta fin de línea:
+$
+
 Marcar todo el archivo:
 ggvG
 
@@ -56,6 +62,9 @@ vim --version | grep clipboard
 Instalar versión con +clipboard:
 sudo apt install vim-gtk3
 
+
+Eliminar la seleccion:
+d
 
 Eliminar línea actual:
 dd
