@@ -1,0 +1,36 @@
+sudo apt update
+sudo apt install -y \
+    build-essential cmake git pkg-config \
+    libopencv-dev \
+    libgoogle-glog-dev libgflags-dev \
+    libatlas-base-dev \
+    libprotobuf-dev protobuf-compiler \
+    libhdf5-dev \
+    libboost-all-dev \
+    libopenblas-dev
+
+git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose.git
+cd openpose && mkdir build && cd build
+
+cmake .. \
+  -DGPU_MODE=CUDA \
+  -DUSE_CUDNN=ON \
+  -DBUILD_PYTHON=OFF \
+  -DBUILD_EXAMPLES=ON \
+  -DUSE_CUDA=ON \
+  -DCUDA_ARCH=Auto
+
+make -j$(nproc)
+
+cd ~/openpose/models/face
+
+wget -O pose_iter_116000.caffemodel \
+"https://www.dropbox.com/s/d08srojpvwnk252/pose_iter_116000.caffemodel?dl=1"
+
+cd ~/openpose/models/pose/body_25
+wget -O pose_iter_584000.caffemodel \
+"https://www.dropbox.com/s/3x0xambj2rkyrap/pose_iter_584000.caffemodel?dl=1"
+
+cd ~/openpose/models/hand
+wget -O pose_iter_102000.caffemodel \
+"https://www.dropbox.com/s/gqgsme6sgoo0zxf/pose_iter_102000.caffemodel?dl=1"
