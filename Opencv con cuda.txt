@@ -14,8 +14,9 @@ sudo apt install -y \
 git clone https://github.com/opencv/opencv.git
 git clone https://github.com/opencv/opencv_contrib.git
 
-cd opencv && git checkout 4.12.0
-cd ../opencv_contrib && git checkout 4.12.0
+
+cd opencv_contrib && git checkout 4.12.0
+cd ../opencv && git checkout 4.12.0
 
 mkdir build && cd build
 
