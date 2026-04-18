@@ -10,7 +10,7 @@
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install build-essential dkms
+sudo apt install build-essential dkms -y
 
 lspci | grep -i nvidia
 lspci | grep -E "VGA|3D"
@@ -27,6 +27,10 @@ sudo reboot
 
 sudo ubuntu-drivers devices
 
+Para driver 590 para GPU GTX 1660 super, revisar notas del archivo "opencv cuda 11.8.txt":
+sudo apt install nvidia-driver-590 -y
+
+Para autoinstalación:
 sudo ubuntu-drivers autoinstall
 
 sudo reboot
