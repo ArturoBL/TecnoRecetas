@@ -42,6 +42,9 @@ sudo apt install nvidia-prime
 sudo prime-select nvidia
 sudo prime-select intel
 
+
+-- A partir de aquí instalación de cuda 12.9, revisar "cuda 11.8.txt" para instalación de cuda 11.8 para GTX 1660 Super
+
 sudo apt update
 sudo apt install -y wget gnupg software-properties-common
 
